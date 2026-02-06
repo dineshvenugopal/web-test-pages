@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Scroll Layout</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+        }
+
+        /* 1. Body Scrollbar: Enabled by default as content exceeds viewport height */
+        body {
+            font-family: system-ui, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            height: 150vh; /* Forcing a vertical scroll on the body */
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            height: 600px; /* Constraints height to trigger internal scrolls */
+        }
+
+        /* 2. Sidebar Scrollbar: Uses overflow-y: auto */
+        .sidebar {
+            background: var(--card-bg);
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            overflow-y: auto; /* Internal scrollbar */
+        }
+
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto; /* Internal scrollbar for the main column */
+            padding-right: 10px;
+        }
+
+        /* 3. Nested Element Scrollbar: Horizontal scroll */
+        .horizontal-scroll-box {
+            display: flex;
+            gap: 15px;
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto; /* Horizontal scrollbar */
+            white-space: nowrap;
+        }
+
+        .card {
+            min-width: 200px;
+            height: 100px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .long-text-box {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            height: 200px;
+            overflow-y: scroll; /* Always show scrollbar */
+        }
+
+        h2 { font-size: 1.2rem; margin-top: 0; }
+        p { color: #64748b; }
+
+        /* Custom Scrollbar Styling (Optional) */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>The Multi-Scroll Playground</h1>
+    <p>The entire <strong>Body</strong> has a scrollbar because the height is set to 150vh.</p>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Sidebar</h2>
+            <p>This panel has its own vertical scrollbar.</p>
+            <ul>
+                <li>Menu Item 1</li><li>Menu Item 2</li><li>Menu Item 3</li>
+                <li>Menu Item 4</li><li>Menu Item 5</li><li>Menu Item 6</li>
+                <li>Menu Item 7</li><li>Menu Item 8</li><li>Menu Item 9</li>
+                <li>Menu Item 10</li><li>Menu Item 11</li><li>Menu Item 12</li>
+                <li>Menu Item 13</li><li>Menu Item 14</li><li>Menu Item 15</li>
+            </ul>
+        </aside>
+
+        <main class="content-area">
+            <section>
+                <h2>Horizontal Scroll Section</h2>
+                <div class="horizontal-scroll-box">
+                    <div class="card">Card 1</div>
+                    <div class="card">Card 2</div>
+                    <div class="card">Card 3</div>
+                    <div class="card">Card 4</div>
+                    <div class="card">Card 5</div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Explicit Vertical Scroll</h2>
+                <div class="long-text-box">
+                    <p>This box uses <code>overflow-y: scroll</code>, which forces the scrollbar to appear even if the content is short.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sæpe enim eadem dicit, cum illi nihil plane quamvis enim multis locis dicat illum propter se expetendum. Idemne, quod iucunde? An vero, inquit, quisquam potest probare, quod perceptfum, quod. </p>
+                    <p>More filler text to ensure we need to scroll... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sæpe enim eadem dicit, cum illi nihil plane quamvis enim multis locis dicat illum propter se expetendum.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Bottom Content</h2>
+                <p>Just adding more height to the content area so the middle column scrolls too.</p>
+                <div style="height: 400px; background: #e2e8f0; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    Deep Section
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
