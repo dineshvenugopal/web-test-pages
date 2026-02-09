@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shadow DOM with Iframe</title>
+</head>
+<body>
+
+<h1>Shadow DOM with Iframe Test</h1>
+
+<div id="host1"></div>
+<hr>
+<div id="host2"></div>
+<hr>
+<div id="host3"></div>
+
+<script>
+    // --- Shadow DOM 1 ---
+    const host1 = document.getElementById('host1');
+    const shadowRoot1 = host1.attachShadow({ mode: 'open' });
+    const p1 = document.createElement('p');
+    p1.textContent = 'This is the first shadow DOM element.';
+    shadowRoot1.appendChild(p1);
+
+    // --- Shadow DOM 2 ---
+    const host2 = document.getElementById('host2');
+    const shadowRoot2 = host2.attachShadow({ mode: 'open' });
+    const p2 = document.createElement('p');
+    p2.textContent = 'This is the second shadow DOM element.';
+    shadowRoot2.appendChild(p2);
+
+    // --- Shadow DOM 3 with Iframe ---
+    const host3 = document.getElementById('host3');
+    const shadowRoot3 = host3.attachShadow({ mode: 'open' });
+
+    const iframe = document.createElement('iframe');
+    iframe.style.width = '400px';
+    iframe.style.height = '150px';
+    iframe.style.border = '2px solid #ccc';
+
+    const iframeContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Iframe Content</title>
+        </head>
+        <body>
+            <p>This iframe is inside a shadow DOM.</p>
+            <label for="text-input">Enter some text:</label>
+            <input type="text" id="text-input" name="text-input">
+            <input type="text" id="text-input2" name="text-input">
+            <input type="text" id="text-input3" name="text-input">
+        </body>
+        </html>
+    `;
+
+    iframe.srcdoc = iframeContent;
+    shadowRoot3.appendChild(iframe);
+
+</script>
+
+</body>
+</html>
