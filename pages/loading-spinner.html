@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loading Spinner Test</title>
+    <style>
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        #spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Loading Spinner Test</h1>
+<button onclick="showSpinner(5000)">5 seconds</button>
+<button onclick="showSpinner(10000)">10 seconds</button>
+<button onclick="showSpinner(15000)">15 seconds</button>
+<button onclick="showSpinner(20000)">20 seconds</button>
+<button onclick="showSpinner(25000)">25 seconds</button>
+<button onclick="showSpinner(30000)">30 seconds</button>
+
+<div id="overlay">
+    <div id="spinner"></div>
+</div>
+
+<script>
+    const overlay = document.getElementById('overlay');
+
+    function showSpinner(duration) {
+        overlay.style.display = 'block';
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, duration);
+    }
+</script>
+
+</body>
+</html>
