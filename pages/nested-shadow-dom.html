@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nested Shadow DOM</title>
+</head>
+<body>
+  <level-1></level-1>
+
+  <script>
+    class Level1 extends HTMLElement {
+      constructor() {
+        super();
+        this.attachShadow({ mode: 'open' }).innerHTML = `<level-2></level-2>`;
+      }
+    }
+    customElements.define('level-1', Level1);
+
+    class Level2 extends HTMLElement {
+      constructor() {
+        super();
+        this.attachShadow({ mode: 'open' }).innerHTML = `<level-3></level-3>`;
+      }
+    }
+    customElements.define('level-2', Level2);
+
+    class Level3 extends HTMLElement {
+      constructor() {
+        super();
+        this.attachShadow({ mode: 'open' }).innerHTML = `<level-4></level-4>`;
+      }
+    }
+    customElements.define('level-3', Level3);
+
+    class Level4 extends HTMLElement {
+      constructor() {
+        super();
+        this.attachShadow({ mode: 'open' }).innerHTML = `<level-5></level-5>`;
+      }
+    }
+    customElements.define('level-4', Level4);
+
+    class Level5 extends HTMLElement {
+      constructor() {
+        super();
+        const shadowRoot = this.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+          <style>
+            input {
+              display: block;
+              margin-bottom: 5px;
+            }
+          </style>
+        `;
+        for (let i = 1; i <= 5; i++) {
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.id = 'input-' + i;
+          input.placeholder = 'Input ' + i;
+          shadowRoot.appendChild(input);
+        }
+      }
+    }
+    customElements.define('level-5', Level5);
+  </script>
+</body>
+</html>
